@@ -4,4 +4,4 @@ notebooks/
 *.ipynb
 data/
 *.csv
-
+__pycache__/
