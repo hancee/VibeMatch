@@ -1,4 +1,7 @@
 .env
 creds.py
+notebooks/
 *.ipynb
+data/
 *.csv
+
