@@ -1,0 +1,32 @@
+[tool.poetry]
+name = "vibematch"
+version = "0.1.0"
+description = "A perfume recommendation engine based on content-based filtering and retrieval-augmented generation (RAG)"
+authors = ["Hancee Villa <hanceeworks@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+packages = [{include = "src"}]
+
+[tool.poetry.dependencies]
+python = ">=3.10,<4.0"
+requests = "^2.32.3"
+beautifulsoup4 = "^4.12.3"
+pandas = "^2.2.3"
+jupyter = "^1.1.1"
+ipykernel = "^6.29.5"
+brotli = "^1.1.0"
+pathlib = "^1.0.1"
+webdriver-manager = "^4.0.2"
+nest-asyncio = "^1.6.0"
+scikit-learn = "^1.6.0"
+fuzzywuzzy = "^0.18.0"
+openai = "^1.58.1"
+swarm = {git = "https://github.com/openai/swarm.git"}
+tavily-python = "^0.5.0"
+streamlit = "^1.41.1"
+rapidfuzz = "^3.11.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
