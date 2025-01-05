@@ -1,7 +1,7 @@
+__pycache__/
 .env
 creds.py
 notebooks/
 *.ipynb
 data/
 *.csv
-__pycache__/
