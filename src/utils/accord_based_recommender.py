@@ -8,7 +8,7 @@ import os
 
 # Load dataframes
 pretty_df = pd.read_pickle(Path.joinpath(ASSETS_DIRECTORY, "pretty_df.pkl"))
-if os.exists(Path.joinpath(ASSETS_DIRECTORY, "cos_sim_matrix.npy")):
+if os.path.exists(Path.joinpath(ASSETS_DIRECTORY, "cos_sim_matrix.npy")):
     cos_sim_matrix = np.load(Path.joinpath(ASSETS_DIRECTORY, "cos_sim_matrix.npy"))
 else:
     # Download from Google Drive

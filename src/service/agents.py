@@ -50,10 +50,11 @@ def transfer_to_analyst():
 
 # Agents
 # TODO: Optimize model for task types
-base_agent = partial(Agent, model="gpt-4o-mini")  # name="Alex",
+base_agent = partial(
+    Agent, model="gpt-4o-mini", name="Alex"
+)  # Use same name, users don't care about agents
 
 triage_agent = base_agent(
-    name="triage",
     instructions=triage_instructions,
     functions=[
         transfer_to_expert,
@@ -63,7 +64,6 @@ triage_agent = base_agent(
 )
 
 expert_agent = base_agent(
-    name="expert",
     instructions=expert_instructions,
     functions=[
         transfer_to_triage,
@@ -75,7 +75,6 @@ expert_agent = base_agent(
 )
 
 researcher_agent = base_agent(
-    name="researcher",
     instructions=researcher_instructions,
     functions=[
         transfer_to_triage,
@@ -87,7 +86,6 @@ researcher_agent = base_agent(
 )
 
 analyst_agent = base_agent(
-    name="analyst",
     instructions=analyst_instructions,
     functions=[
         transfer_to_triage,
@@ -100,7 +98,6 @@ analyst_agent = base_agent(
 
 
 # data_retriever_agent = base_agent(
-#     name="data_retriever",
 #     instructions=data_retriever_instructions,
 #     functions=[transfer_to_analyst, retrieve_data_based_on_reference_perfume],
 # )
