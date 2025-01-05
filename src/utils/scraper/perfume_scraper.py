@@ -4,14 +4,16 @@ from pathlib import Path
 import requests
 from bs4 import BeautifulSoup
 
-from src.utils.scraper.creds import api_key
+from dotenv import load_dotenv
 from src.utils.definitions import DATA_DIRECTORY
+
+load_dotenv()
 
 
 class PerfumeScraper:
     def __init__(self, url):
         self.url = url
-        self.api_key = api_key
+        self.api_key = SCRAPERAPI_API_KEY
         self.soup = self.get_soup_using_api()
         self.id = self.extract_id()
         self.gender = self.extract_gender()
