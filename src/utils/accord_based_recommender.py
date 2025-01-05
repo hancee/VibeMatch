@@ -4,10 +4,27 @@ import numpy as np
 import pandas as pd
 from src.utils.definitions import ASSETS_DIRECTORY
 from pathlib import Path
+import os
 
 # Load dataframes
 pretty_df = pd.read_pickle(Path.joinpath(ASSETS_DIRECTORY, "pretty_df.pkl"))
-cos_sim_matrix = np.load(Path.joinpath(ASSETS_DIRECTORY, "cos_sim_matrix.npy"))
+if os.exists(Path.joinpath(ASSETS_DIRECTORY, "cos_sim_matrix.npy")):
+    cos_sim_matrix = np.load(Path.joinpath(ASSETS_DIRECTORY, "cos_sim_matrix.npy"))
+else:
+    # Download from Google Drive
+    import requests
+
+    file_id = "1cUxPg4hvJni5ZgQnncnCJwLUPcQQt-4L"
+    download_url = f"https://drive.google.com/uc?export=download&id={file_id}"
+    response = requests.get(download_url)
+    if response.status_code == 200:
+        # Save the downloaded file locally
+        with open(Path.joinpath(ASSETS_DIRECTORY, "cos_sim_matrix.npy"), "wb") as f:
+            f.write(response.content)
+        # Load the numpy array
+        cos_sim_matrix = np.load(Path.joinpath(ASSETS_DIRECTORY, "cos_sim_matrix.npy"))
+    else:
+        raise Exception("Failed to download file from Google Drive.")
 
 
 class AccordBasedRecommender:
