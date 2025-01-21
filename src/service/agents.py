@@ -1,5 +1,6 @@
 from functools import partial
 from swarm import Agent
+from src.service.tools.error_handler import mock_an_error, send_details_to_human
 from src.service.tools.web_search import (
     search_fragrantica_forum,
     search_fragrantica_news,
@@ -19,6 +20,7 @@ from src.service.prompts import (
     expert_instructions,
     researcher_instructions,
     analyst_instructions,
+    mock_instructions,
 )
 
 
@@ -43,27 +45,30 @@ def transfer_to_analyst():
     return analyst_agent
 
 
-# def transfer_to_data_retriever():
-#     print("Transfering to Data Retriever...")
-#     return data_retriever_agent
+def transfer_to_mock():
+    print("Transfering to Mock...")
+    return mock_agent
 
 
 # Agents
 # TODO: Optimize model for task types
 base_agent = partial(
-    Agent, model="gpt-4o-mini", name="Alex"
+    Agent, model="gpt-4o-mini"  # , name="Alex"
 )  # Use same name, users don't care about agents
 
 triage_agent = base_agent(
+    name="Triage",
     instructions=triage_instructions,
     functions=[
         transfer_to_expert,
         transfer_to_researcher,
         transfer_to_analyst,
+        transfer_to_mock,
     ],
 )
 
 expert_agent = base_agent(
+    name="Expert",
     instructions=expert_instructions,
     functions=[
         transfer_to_triage,
@@ -75,6 +80,7 @@ expert_agent = base_agent(
 )
 
 researcher_agent = base_agent(
+    name="Researcher",
     instructions=researcher_instructions,
     functions=[
         transfer_to_triage,
@@ -86,6 +92,7 @@ researcher_agent = base_agent(
 )
 
 analyst_agent = base_agent(
+    name="Analyst",
     instructions=analyst_instructions,
     functions=[
         transfer_to_triage,
@@ -96,8 +103,8 @@ analyst_agent = base_agent(
     ],
 )
 
-
-# data_retriever_agent = base_agent(
-#     instructions=data_retriever_instructions,
-#     functions=[transfer_to_analyst, retrieve_data_based_on_reference_perfume],
-# )
+mock_agent = base_agent(
+    name="Mock",
+    instructions=mock_instructions,
+    functions=[mock_an_error, send_details_to_human],
+)
