@@ -1,22 +1,22 @@
+import os
 import re
-from pathlib import Path
+
+from dotenv import load_dotenv
+
+from src.utils.definitions import ENV_FILEPATH
+
+load_dotenv(dotenv_path=ENV_FILEPATH)
+
 
 import requests
 from bs4 import BeautifulSoup
-
 from dotenv import load_dotenv
-from src.utils.definitions import DATA_DIRECTORY
 
 
 class PerfumeScraper:
     def __init__(self, url):
         self.url = url
-        try:
-            self.api_key = SCRAPERAPI_API_KEY
-        except NameError:
-            from src.utils.scraper.creds import api_key
-
-            self.api_key = api_key
+        self.api_key = os.getenv("SCRAPERAPI_API_KEY")
         self.soup = self.get_soup_using_api()
         self.id = self.extract_id()
         self.gender = self.extract_gender()

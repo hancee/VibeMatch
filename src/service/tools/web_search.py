@@ -1,6 +1,11 @@
 import os
+
+from dotenv import load_dotenv
 from tavily import TavilyClient
 
+from src.utils.definitions import ENV_FILEPATH
+
+load_dotenv(ENV_FILEPATH)
 tavily_client = TavilyClient(api_key=os.getenv("TAVILY_API_KEY"))
 
 
